@@ -29,6 +29,10 @@
   command: >
     mv /usr/local/{{ sonar_version_directory }} /usr/local/sonar
     creates=/usr/local/sonar/COPYING
+    
+- name: Change ownership of sonar dir
+  command: >
+    chown -R {{ sonar_service_account }}:{{ sonar_service_account }} /usr/local/sonar
 
 - include: configure.yml
 
