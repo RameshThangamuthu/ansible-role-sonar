@@ -29,7 +29,13 @@
   command: >
     mv /usr/local/{{ sonar_version_directory }} /usr/local/sonar
     creates=/usr/local/sonar/COPYING
-    
+
+- name: Add a non-root service account to run sonarqube
+  user:
+    name: {{sonar_service_account}}
+    comment: SonarQube User
+    group: {{sonar_service_account}}
+
 - name: Change ownership of sonar dir
   command: >
     chown -R {{ sonar_service_account }}:{{ sonar_service_account }} /usr/local/sonar
